@@ -1,11 +1,7 @@
 // Comparator for columns with dates
 export function compareDates(
   dateString1: string | null | undefined,
-  dateString2: string | null | undefined,
-  rowNodeA: any,
-  rowNodeB: any,
-  isDescending: boolean
-): number {
+  dateString2: string | null | undefined): number {
   const dateNumber1 = convertDateToComparableNumber(dateString1);
   const dateNumber2 = convertDateToComparableNumber(dateString2);
 

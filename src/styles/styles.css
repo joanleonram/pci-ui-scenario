@@ -11,8 +11,19 @@ button {
   padding: 0;
 }
 
+.app__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* space between the title and the button */
+  margin: 2rem 0;
+}
+
 .app__title {
   font: bold 1.5rem "Roboto", sans-serif;
-  margin: 2rem 0;
   text-align: center;
+}
+
+.button--clear-filters {
+  padding: 5px;
 }

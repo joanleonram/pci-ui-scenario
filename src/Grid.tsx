@@ -1,9 +1,9 @@
+import { useMemo, forwardRef, useImperativeHandle } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
 import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { useMemo, useRef } from "react";
 
 import { formatDateTo } from "./commons/utils/formatDateTo";
 import { compareNumbers } from "./commons/utils/compareNumbers";
@@ -85,9 +85,13 @@ const columnDefs: ColDef[] = [
   },
 ];
 
-const NeoGrid = (): JSX.Element => {
-  const gridRef = useRef<AgGridReact>(null);
-  
+interface NeoGridProps {
+  gridRef: React.RefObject<AgGridReact>;
+}
+
+const NeoGrid = forwardRef<unknown, NeoGridProps>((props, ref) => {
+  const gridRef = props.gridRef;
+
   const defaultColDef = useMemo<ColDef>(() => {
     return {
       sortable: true,
@@ -96,20 +100,31 @@ const NeoGrid = (): JSX.Element => {
     };
   }, []);
 
+  useImperativeHandle(ref, () => ({
+    resetFiltersAndSorters: () => {
+      if (gridRef.current) {
+        gridRef.current.api.applyColumnState({
+          defaultState: { sort: null },
+        });
+        gridRef.current.api.setFilterModel(null);
+      } else {
+        console.error("Grid reference is not available.");
+      }
+    },
+  }));
+
   return (
-    <>
-      <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
-        <AgGridReact
-          ref={gridRef}
-          rowData={data}
-          columnDefs={columnDefs}
-          defaultColDef={defaultColDef}
-          rowGroupPanelShow={"always"}
-          rowSelection={"multiple"}
-        />
-      </div>
-    </>
+    <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+      <AgGridReact
+        ref={gridRef}
+        rowData={data}
+        columnDefs={columnDefs}
+        defaultColDef={defaultColDef}
+        rowGroupPanelShow={"always"}
+        rowSelection={"multiple"}
+      />
+    </div>
   );
-};
+});
 
 export default NeoGrid;

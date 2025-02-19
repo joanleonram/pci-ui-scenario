@@ -1,0 +1,18 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+.app__title {
+  font: bold 1.5rem "Roboto", sans-serif;
+  margin: 2rem 0;
+  text-align: center;
+}

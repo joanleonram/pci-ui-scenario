@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { useMemo, useRef } from "react";
 
+import { formatDateTo } from "./commons/utils/formatDateTo";
 import { compareNumbers } from "./commons/utils/compareNumbers";
 import { compareDates } from "./commons/utils/compareDates";
 import {
@@ -25,6 +26,7 @@ const columnDefs: ColDef[] = [
   {
     field: "discovery_date",
     headerName: "Discovery Date",
+    valueFormatter: (params) => formatDateTo(params),
     filter: "agDateColumnFilter",
     comparator: compareDates,
     filterValueGetter: getDateValue,

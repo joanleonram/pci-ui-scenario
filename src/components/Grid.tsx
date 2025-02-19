@@ -1,13 +1,13 @@
 import { useMemo, forwardRef, useImperativeHandle } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
-import data from "./near-earth-asteroids.json";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
-import { formatDateTo } from "./commons/utils/formatDateTo";
-import { compareNumbers } from "./commons/utils/compareNumbers";
-import { compareDates } from "./commons/utils/compareDates";
+import data from "../data/near-earth-asteroids.json";
+import { formatDateTo } from "../utils/formatDateTo";
+import { compareNumbers } from "../utils/compareNumbers";
+import { compareDates } from "../utils/compareDates";
 import {
   getDateValue,
   getHMagValue,
@@ -17,7 +17,7 @@ import {
   getPhaValue,
   getQAu1Value,
   getQAu2Value,
-} from "./commons/utils/valueGetters";
+} from "../utils/valueGetters";
 
 const columnDefs: ColDef[] = [
   {

@@ -14,6 +14,7 @@ import {
   getIDegValue,
   getMoidAuValue,
   getPeriodYrValue,
+  getPhaValue,
   getQAu1Value,
   getQAu2Value,
 } from "./commons/utils/valueGetters";
@@ -76,6 +77,7 @@ const columnDefs: ColDef[] = [
   {
     field: "pha",
     headerName: "Potentially Hazardous",
+    valueGetter: getPhaValue,
   },
   {
     field: "orbit_class",

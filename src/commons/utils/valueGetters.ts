@@ -1,6 +1,29 @@
 import { ValueGetterParams } from "ag-grid-community";
 
 /**
+ * Converts the "pha" column value to a more readable format.
+ * - "Y" becomes "Yes"
+ * - "N" becomes "No"
+ * - "n/a" becomes an empty string
+ * - Any other value becomes "ERR"
+ *
+ * @param params - The parameters provided by ag-Grid.
+ * @returns A string representing the formatted "pha" value.
+ */
+export function getPhaValue(params: ValueGetterParams): string {
+  switch (params.data.pha) {
+    case "Y":
+      return "Yes";
+    case "N":
+      return "No";
+    case "n/a":
+      return "";
+    default:
+      return "ERR";
+  }
+}
+
+/**
  * Converts the "h_mag" column value to a number.
  *
  * @param params - The parameters provided by ag-Grid.

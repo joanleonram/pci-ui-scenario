@@ -59,7 +59,63 @@ Within this repo is a demo UI that our team needs to make some changes to before
 2. While this list of data is great, it would be useful for the user to be able to interact with beyond scrolling. We need to add sorting to the grid. Make the changes necessary to allow the user to sort all columns. String columns should sort alphabetically. Numerical columns should sort by value. Date columns should sort chronologically. In addition to sorting, the user wants to be able to filter their data. Numeric columns should have a filter that supports numerical filtering, and string columns should have a filter that supports string filtering.
 3. The users have complained that the dates are not very readable. Please display the dates in a format that is more human-readable. I will trust your input on what format is best in this case.
 4. Rather than just displaying Y or N or n/a in the Potentially Hazardous column, we should display "Yes", "No", and a blank cell for those values respectively.
-5. The users would like to be able to copy the information from this grid into a software like Excel. The user should be able to select any portion of this grid, copy the data, and paste it into excel. When they do this, they should get only the data that is copied, and they should get that data as it is displayed within the grid.
+5. [NOT IMPLEMENTED] The users would like to be able to copy the information from this grid into a software like Excel. The user should be able to select any portion of this grid, copy the data, and paste it into excel. When they do this, they should get only the data that is copied, and they should get that data as it is displayed within the grid.
+
+    #### Explanation:
+    The requirement to allow users to copy information from the grid into software like Excel involves using the Range Selection and Clipboard functionalities of ag-Grid. These features are part of the ag-Grid Enterprise package, which requires a commercial license. Without an enterprise license, these functionalities are not available in the free version of ag-Grid.
+
+    #### Example of Use (Enterprise License Required):
+    If you had an enterprise license, you could implement the feature as follows:
+
+    - IMport the Enterprise Library "ag-grid-enterprise"
+
+    ```tsx
+    import 'ag-grid-enterprise';
+    ```
+
+    - Enable Range Selection and Clipboard: You need to enable the range selection and clipboard functionalities in the grid options.
+    - Grid Configuration: Configure the grid to allow range selection and clipboard operations.
+
+    ```tsx
+    const columnDefs: ColDef[] = [
+    ...
+    ];
+
+    const NeoGrid = (): JSX.Element => {
+        const gridRef = useRef<AgGridReact>(null);
+    
+        const defaultColDef = useMemo<ColDef>(() => {
+            return {
+            sortable: true,
+            filter: "agTextColumnFilter",
+            menuTabs: ["filterMenuTab"],
+            };
+        }, []);
+
+        return (
+            <>
+            <div className="ag-theme-alpine" style={{ height: 900, width: 1920 }}>
+                <AgGridReact
+                    ref={gridRef}
+                    rowData={data}
+                    columnDefs={columnDefs}
+                    defaultColDef={defaultColDef}
+                    rowGroupPanelShow={"always"}
+                    rowSelection={"multiple"}
+                    enableRangeSelection={true} // Enable range selection
+                    enableClipboard={true} // Enable clipboard operations
+                />
+            </div>
+            </>
+        );
+    };
+
+    export default NeoGrid;
+    ```
+    Reference taken from the AGrid docummentation website:
+    https://www.ag-grid.com/react-data-grid/cell-selection/
+  
+
 6. The users want to be able to quickly clear all filtering and sorting that is going on in their grid. They want one button they can click that will restore the grid to it's default view, unfiltered and unsorted. Can you add a button (of any kind) to the right of the title we added previously? The button should say "Clear Filters and Sorters" and should be positioned with a 15px space between the title and the button.
 7. Lastly, this grid is going to go to production soon, and other developers will begin doing work on this project. While creating this demo, considerations were not made to keep the code clean and organized. Please organize this codebase so that it is easier to find and make changes to components, as well as finding any interfaces, types, or helper functions.
 
